@@ -4,7 +4,7 @@ var Square = preload("res://Scenes/Square.tscn")
 
 enum SHAPE {L3, L4, Lr3, Lr4, PLUS5, PLUS9, LONG3, LONG4, LONG6}
 
-export(SHAPE) var shape = SHAPE.PLUS9
+export(SHAPE) var shape = SHAPE.L4
 export(Color) var color = Color("#4287f5")
 
 var squares = []
@@ -39,15 +39,40 @@ func _ready():
 				Vector2(-1, 0),
 				Vector2(0, -1)
 			]
+		SHAPE.L4:
+			square_positions = [
+				Vector2(0, 0),
+				Vector2(0, -1),
+				Vector2(0, -2),
+				Vector2(1, 0)
+			]
 	
 	generate_squares(square_positions)
 
 func _process(delta):
 	time += delta
 	
-	if time >= 0.6:
+	if time >= 0.4:
 		time = 0
 		pulsate()
+	
+	if Input.is_action_just_pressed("ui_down"):
+		move(0, 1)
+	elif Input.is_action_just_pressed("ui_up"):
+		move(0, -1)
+	elif Input.is_action_just_pressed("ui_right"):
+		move(1, 0)
+	elif Input.is_action_just_pressed("ui_left"):
+		move(-1, 0)
+	
+	if Input.is_action_just_pressed("red1"):
+		turn(true)
+	elif Input.is_action_just_pressed("red2"):
+		turn(false)
+	
+
+func _unhandled_input(event):
+	print(event)
 
 func generate_squares(square_positions):
 	for v in square_positions:
@@ -58,12 +83,12 @@ func generate_squares(square_positions):
 		squares.append(instance)
 		add_child(instance)
 
-func turn():
+func turn(positive: bool):
 	$RotationTween.stop_all()
-	$RotationTween.interpolate_property(self, "rotation", rot*PI, (rot+1)*PI, .15, Tween.TRANS_QUART, Tween.EASE_OUT)
+	$RotationTween.interpolate_property(self, "rotation", rot*PI/2, (rot + (1 if positive else -1))*PI/2, .15, Tween.TRANS_QUART, Tween.EASE_OUT)
 	$RotationTween.start()
 	
-	rot = (rot + 1) % 4
+	rot = (rot + (1 if positive else -1) + 4) % 4
 
 func move(offsetX: int, offsetY: int):
 	$TranslationTween.stop_all()
