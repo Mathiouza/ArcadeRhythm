@@ -23,3 +23,9 @@ margin_top = -32.0
 margin_right = 48.0
 margin_bottom = 48.0
 color = Color( 0.32549, 0.184314, 0.184314, 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

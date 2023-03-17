@@ -42,6 +42,8 @@ var current_piece : Piece
 var next_piece : Piece
 var squares = []
 
+var on_beat = false
+
 var square_positions: PoolVector2Array = []
 
 func _ready():
@@ -69,6 +71,9 @@ func _process(delta):
 		current_piece.turn(false)
 	
 	if Input.is_action_just_pressed(str(controller)+"yellow1") && check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
+		if on_beat:
+			print("on beat")
+		
 		place()
 
 func place():
@@ -181,3 +186,10 @@ func check_for_clears():
 			squares[index].queue_free()
 			square_positions.remove(index)
 			squares.remove(index)
+
+func pulsate():
+	on_beat = true
+	$Timer.start()
+
+func _on_Timer_timeout():
+	on_beat = false
