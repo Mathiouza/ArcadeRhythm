@@ -53,7 +53,11 @@ func _process(delta):
 	time += delta
 	
 	if time >= 0.4:
+<<<<<<< Updated upstream
 		time = 0
+=======
+		time -= 0.4
+>>>>>>> Stashed changes
 		pulsate()
 	
 	if Input.is_action_just_pressed("ui_down"):
