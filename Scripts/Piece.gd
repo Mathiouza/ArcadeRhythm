@@ -4,13 +4,10 @@ class_name Piece
 
 var Square = preload("res://Scenes/Square.tscn")
 
-enum SHAPE {L3, L4, Lr3, Lr4, PLUS5, PLUS9, LONG3, LONG4, LONG6}
-
-export(SHAPE) var shape = SHAPE.L4
+export(PoolVector2Array) var square_positions = []
 export(Color) var color = Color("#4287f5")
 
 var squares = []
-var square_positions = []
 
 var time = 0
 
@@ -19,36 +16,7 @@ var x = 0
 var y = 0
 
 func _ready():
-	match shape:
-		SHAPE.PLUS9:
-			square_positions = [
-				Vector2(0, 0),
-				Vector2(1, 0),
-				Vector2(2, 0),
-				Vector2(-1, 0),
-				Vector2(-2, 0),
-				Vector2(0, 1),
-				Vector2(0, 2),
-				Vector2(0, -1),
-				Vector2(0, -2)
-			]
-		SHAPE.PLUS5:
-			square_positions = [
-				Vector2(0, 0),
-				Vector2(1, 0),
-				Vector2(0, 1),
-				Vector2(-1, 0),
-				Vector2(0, -1)
-			]
-		SHAPE.L4:
-			square_positions = [
-				Vector2(0, 0),
-				Vector2(0, -1),
-				Vector2(0, -2),
-				Vector2(1, 0)
-			]
-	
-	generate_squares(square_positions)
+	generate_squares()
 
 func _process(delta):
 	time += delta
@@ -57,7 +25,8 @@ func _process(delta):
 		time -= 0.4
 		pulsate()
 
-func generate_squares(square_positions):
+func generate_squares():
+	rotation = rot*PI/2
 	for v in square_positions:
 		var instance = Square.instance()
 		instance.color = color
@@ -91,13 +60,17 @@ func pulsate():
 func get_piece_rotation():
 	return rot
 
-func get_block_positions() -> Array:
+func get_block_positions(offsetX = 0, offsetY = 0, offsetRot = 0, blocks = []) -> Array:
 	var positions = []
 	
-	for position in square_positions:
+	for position in (blocks if blocks.size() > 0 else square_positions):
 		positions.append(Vector2(
-			round(position.x * cos(rot*PI/2) - position.y * sin(rot*PI/2)) + x,
-			round(position.x * sin(rot*PI/2) + position.y * cos(rot*PI/2)) + y
+			round(position.x * cos((rot + offsetRot)*PI/2) - position.y * sin((rot + offsetRot)*PI/2)) + x + offsetX,
+			round(position.x * sin((rot + offsetRot)*PI/2) + position.y * cos((rot + offsetRot)*PI/2)) + y + offsetY
 		))
 	
 	return positions
+
+func update_display():
+	position = Vector2(x*16+8, y*16+8)
+	rotation = rot*PI/2

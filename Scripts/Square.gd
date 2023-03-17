@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Square
+
 export(Color) var color = Color("#4287f5")
 
 export var x = 0
