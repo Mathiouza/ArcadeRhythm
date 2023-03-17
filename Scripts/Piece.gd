@@ -9,21 +9,12 @@ export(Color) var color = Color("#4287f5")
 
 var squares = []
 
-var time = 0
-
 var rot = 0
 var x = 0
 var y = 0
 
 func _ready():
 	generate_squares()
-
-func _process(delta):
-	time += delta
-	
-	if time >= 0.4:
-		time -= 0.4
-		pulsate()
 
 func generate_squares():
 	rotation = rot*PI/2

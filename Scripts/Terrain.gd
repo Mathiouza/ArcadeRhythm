@@ -190,6 +190,8 @@ func check_for_clears():
 func pulsate():
 	on_beat = true
 	$Timer.start()
+	if current_piece != null:
+		current_piece.pulsate()
 
 func _on_Timer_timeout():
 	on_beat = false
