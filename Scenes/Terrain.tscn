@@ -7,11 +7,6 @@
 position = Vector2( 16, 16 )
 script = ExtResource( 1 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 192.0
-margin_bottom = 192.0
-color = Color( 0.333333, 0.184314, 0.184314, 1 )
-
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
@@ -20,7 +15,7 @@ centered = false
 position = Vector2( 8, 8 )
 
 [node name="NextPieceContainer" type="Node2D" parent="."]
-position = Vector2( 256, 64 )
+position = Vector2( 164, 43 )
 
 [node name="ColorRect" type="ColorRect" parent="NextPieceContainer"]
 margin_left = -32.0
