@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Piece
+
 var Square = preload("res://Scenes/Square.tscn")
 
 enum SHAPE {L3, L4, Lr3, Lr4, PLUS5, PLUS9, LONG3, LONG4, LONG6}
@@ -8,6 +10,7 @@ export(SHAPE) var shape = SHAPE.L4
 export(Color) var color = Color("#4287f5")
 
 var squares = []
+var square_positions = []
 
 var time = 0
 
@@ -16,8 +19,6 @@ var x = 0
 var y = 0
 
 func _ready():
-	var square_positions = []
-	
 	match shape:
 		SHAPE.PLUS9:
 			square_positions = [
@@ -53,30 +54,8 @@ func _process(delta):
 	time += delta
 	
 	if time >= 0.4:
-<<<<<<< Updated upstream
-		time = 0
-=======
 		time -= 0.4
->>>>>>> Stashed changes
 		pulsate()
-	
-	if Input.is_action_just_pressed("ui_down"):
-		move(0, 1)
-	elif Input.is_action_just_pressed("ui_up"):
-		move(0, -1)
-	elif Input.is_action_just_pressed("ui_right"):
-		move(1, 0)
-	elif Input.is_action_just_pressed("ui_left"):
-		move(-1, 0)
-	
-	if Input.is_action_just_pressed("red1"):
-		turn(true)
-	elif Input.is_action_just_pressed("red2"):
-		turn(false)
-	
-
-func _unhandled_input(event):
-	print(event)
 
 func generate_squares(square_positions):
 	for v in square_positions:
@@ -84,6 +63,7 @@ func generate_squares(square_positions):
 		instance.color = color
 		instance.x = v.x
 		instance.y = v.y
+		position = Vector2(x*16+8, y*16+8)
 		squares.append(instance)
 		add_child(instance)
 
@@ -107,3 +87,17 @@ func pulsate():
 	$PulsateTween.interpolate_property(self, "scale", Vector2(1, 1), Vector2(1.2, 1.2), .1, Tween.TRANS_CIRC, Tween.EASE_OUT)
 	$PulsateTween.interpolate_property(self, "scale", Vector2(1.2, 1.2), Vector2(1, 1), .1, Tween.TRANS_CIRC, Tween.EASE_IN)
 	$PulsateTween.start()
+
+func get_piece_rotation():
+	return rot
+
+func get_block_positions() -> Array:
+	var positions = []
+	
+	for position in square_positions:
+		positions.append(Vector2(
+			round(position.x * cos(rot*PI/2) - position.y * sin(rot*PI/2)) + x,
+			round(position.x * sin(rot*PI/2) + position.y * cos(rot*PI/2)) + y
+		))
+	
+	return positions
