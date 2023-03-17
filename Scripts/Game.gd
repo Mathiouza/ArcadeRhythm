@@ -1,64 +1,34 @@
 extends Node2D
 
+var speed = 0
+var audio_players = []
+var bpms = [
+	100, 125, 150, 175, 200
+]
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-var mscale = .5
+func _ready():
+	audio_players = [
+		$a100,
+		$a125,
+		$a150,
+		$a175,
+		$a200
+	]
 
 func _process(delta):
-	if Input.is_action_just_pressed("red1"):
-		mscale += .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("1")
+	var prec_speed = speed
 	
-	if Input.is_action_just_pressed("red2"):
-		mscale -= .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("2")
+	if Input.is_action_just_pressed("0red1"):
+		speed = min(speed + 1, 4)
 	
-	if Input.is_action_just_pressed("yellow1"):
-		mscale += .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("3")
+	if Input.is_action_just_pressed("0red2"):
+		speed = max(speed - 1, 0)
 	
-	if Input.is_action_just_pressed("yellow2"):
-		mscale -= .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("4")
-	
-	if Input.is_action_just_pressed("green1"):
-		mscale += .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("5")
-	
-	if Input.is_action_just_pressed("green2"):
-		mscale -= .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("6")
-	
-	if Input.is_action_just_pressed("blue1"):
-		mscale += .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("7")
-	
-	if Input.is_action_just_pressed("blue2"):
-		mscale -= .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("8")
-	
-	if Input.is_action_just_pressed("player"):
-		mscale += .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("9")
-	
-	if Input.is_action_just_pressed("credit"):
-		mscale -= .1
-		$AudioStreamPlayer.pitch_scale = mscale
-		print("10")
+	if prec_speed != speed:
+		change_tempo(prec_speed, speed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func change_tempo(prec_speed, new_speed):
+	var audio_position = audio_players[prec_speed].get_playback_position()
+	audio_players[prec_speed].stop()
+	
+	audio_players[speed].play(audio_position * bpms[prec_speed] / bpms[speed])
