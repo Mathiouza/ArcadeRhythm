@@ -3,6 +3,7 @@ shader_type canvas_item;
 uniform vec2 curvature;
 uniform vec2 screenResolution;
 uniform vec2 screenOpacity;
+uniform float time;
 
 const float PI = 3.141592;
 
@@ -36,17 +37,33 @@ void fragment() {
 	float xVignette = clamp(pow(uv.x * (1.0-uv.x) * screenResolution.x / 30.0, 0.8), 0.0, 1.0);
 	float yVignette = clamp(pow(uv.y * (1.0-uv.y) * screenResolution.y / 30.0, 0.8), 0.0, 1.0);
 	
-	COLOR = COLOR * vec4(vec3(xVignette * yVignette), 1.0);
+	COLOR *= vec4(vec3(xVignette * yVignette), 1.0);
 	
-	if(uv.x < 0.001 || uv.y < 0.001 || uv.x > 0.999 || uv.y > 0.999) {
-		COLOR = vec4(0.5 * COLOR.rgb, 1.0);
+	vec2 pixelWidthInUvWorld = 1.0 / screenResolution;
+	bool finish = false;
+	for(int i = 1 ; i < 10 ; i++) {
+		for(int j = 0 ; j < 16 ; j++) {
+			vec2 new_uv = uv + vec2(cos(float(j) * PI / 8.0), -sin(float(j) * PI / 8.0)) * float(i) * pixelWidthInUvWorld;
+			vec4 new_color = texture(TEXTURE, new_uv);
+			
+			float luminance = new_color.r * 0.2126 + new_color.g * 0.7152 + new_color.b * 0.0722;
+			
+			if(luminance > 0.4 && luminance < 0.5) {
+				COLOR += vec4(new_color.rgb * vec3(float(10-i)), 0.0) * 0.05;
+				finish = true;
+				break;
+			}
+		}
+		
+		if(finish) {
+			break;
+		}
 	}
 	
-	if(uv.x < 0.0005 || uv.y < 0.0005 || uv.x > 0.9995 || uv.y > 0.9995) {
-		COLOR = vec4(0.5 * COLOR.rgb, 1.0);
-	}
+	/* 204 115 29 0.8 0.45 0.101
+	float bornedTime = time;
+	while(bornedTime >= 10.0) bornedTime -= 10.0;
 	
-	if(uv.x < 0.0 || uv.y < 0.0 || uv.x > 1.0 || uv.y > 1.0) {
-		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
-	}
+	COLOR *= vec4(vec3(clamp(-5000.0*pow((1.0-uv.y) - bornedTime / 10.0, 2.0) + 1.0, 0.0, 1.0) + 1.0), 1.0);
+	*/
 }

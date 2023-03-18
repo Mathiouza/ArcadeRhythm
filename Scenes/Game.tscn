@@ -29,7 +29,8 @@ stream = ExtResource( 5 )
 stream = ExtResource( 6 )
 
 [node name="Terrain1" parent="." instance=ExtResource( 7 )]
+position = Vector2( 71, 112 )
 
 [node name="Terrain2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 338, 22 )
+position = Vector2( 254, 112 )
 controller = 1

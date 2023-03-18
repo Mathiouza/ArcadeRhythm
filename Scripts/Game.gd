@@ -44,6 +44,7 @@ func _process(delta):
 	print(time_check)
 	if (new_audio_position - audio_position) >= time_check:
 		$Terrain1.pulsate()
+		$Terrain2.pulsate()
 		audio_position = new_audio_position
 		
 	

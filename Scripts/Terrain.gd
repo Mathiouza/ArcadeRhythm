@@ -1,6 +1,8 @@
+tool
 extends Node2D
 
 signal gameover
+signal music_level(music_level)
 
 var Piece = preload("res://Scenes/Piece.tscn")
 var Square = preload("res://Scenes/Square.tscn")
@@ -34,7 +36,7 @@ const shapes = [
 	]
 ]
 
-export var controller = 0
+export var controller = 0 setget set_controller
 export var width = 6
 export var height = 6
 
@@ -42,19 +44,54 @@ var current_piece : Piece
 var next_piece : Piece
 var squares = []
 
+var current_beat = 0
+var number_of_beats = 6
 var on_beat = false
+
+var level_thresholds = [
+	2000, 4000, 6000, 8000, 10000, 12000, 14000
+]
+var level_actions = [
+	"beat", "beat", "beat", "music", "beat", "beat", "beat"
+]
+var level_colors = [
+	Color("#5de04f"),
+	Color("#9dde43"),
+	Color("#bfde43"),
+	Color("#ded343"),
+	Color("#d9ae30"),
+	Color("#d1802e"),
+	Color("#d1592e"),
+]
+var score = 0
+var actual_level = 1
+var forced_level = 1
 
 var square_positions: PoolVector2Array = []
 
 var active = true
 
 func _ready():
-	randomize()
+	if !Engine.editor_hint:
+		randomize()
+		
+		$LevelsContainer.current_beat = current_beat + 1
+		place()
+		set_score(0)
+
+var time = 0.0
+
+func update_display_beat():
+	if current_beat >= $LevelsContainer.get_number_of_beats():
+		force_placement()
+		current_beat = 0
 	
-	place()
+	$LevelsContainer.current_beat = current_beat + 1
+	time -= 60.0/150
 
 func _process(delta):
-	if active:
+
+	if !Engine.editor_hint && active:
 		
 		if Input.is_action_just_pressed(str(controller)+"up") && check_for_edges(current_piece.x, current_piece.y-1, current_piece.rot, current_piece.square_positions):
 			current_piece.move(0, -1)
@@ -79,6 +116,9 @@ func _process(delta):
 				print("on beat")
 			
 			place()
+			current_beat = 0
+			update_display_beat()
+
 
 func place():
 	if current_piece != null:
@@ -92,7 +132,7 @@ func place():
 			new_square.x = block_pos.x
 			new_square.y = block_pos.y
 			squares.append(new_square)
-			$BlocksContainer.add_child(new_square)
+			$"%BlocksContainer".add_child(new_square)
 		
 		check_for_clears()
 		
@@ -105,6 +145,7 @@ func place():
 		next_piece.queue_free()
 	
 	next_piece = Piece.instance()
+	next_piece.color = level_colors[actual_level-1]
 	next_piece.square_positions = shapes[randi() % SHAPE.size()]
 	$NextPieceContainer.add_child(next_piece)
 	
@@ -114,11 +155,14 @@ func place():
 	current_piece.y = 2
 	current_piece.rot = 0
 	current_piece.square_positions = blocks
+	current_piece.color = level_colors[actual_level-1]
 	
 	add_child(current_piece)
+	
+	set_score(score + 10)
 
 func force_placement():
-	if check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
+	if !check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
 		emit_signal("gameover")
 	else:
 		place()
@@ -190,12 +234,77 @@ func check_for_clears():
 			squares[index].queue_free()
 			square_positions.remove(index)
 			squares.remove(index)
+	
+	var actualPoints = 0
+	
+	for i in points:
+		actualPoints += (i+1) * 1000
+	
+	set_score(score + actualPoints)
 
 func pulsate():
 	on_beat = true
 	$Timer.start()
 	if current_piece != null:
 		current_piece.pulsate()
+	current_beat += 1			
+	update_display_beat()
 
 func _on_Timer_timeout():
 	on_beat = false
+
+func set_controller(new_controller):
+	controller = new_controller
+	if controller == 0:
+		$LevelsContainer.position = Vector2(-16, 0)
+	else:
+		$LevelsContainer.position = Vector2(6*16+16, 0)
+
+func set_score(new_score):
+	score = new_score
+	
+	var i = 0
+	for threshold in level_thresholds:
+		if score >= threshold && actual_level <= i+1:
+			set_level(actual_level + 1)
+			break
+		i += 1
+	
+	$ScoreNumber.score = score
+
+func set_level(new_level):
+	actual_level = new_level
+	
+	current_piece.color = level_colors
+	next_piece.color = level_colors
+	
+	if actual_level > forced_level:
+		forced_level = actual_level
+		
+		level_up()
+
+func set_forced_level(new_level):
+	forced_level = new_level
+	
+	if forced_level > actual_level:
+		level_up()
+
+func level_up():
+	var beat_level = 1
+	var music_level = 1
+	
+	var i = 0
+	for action in level_actions:
+		if i == forced_level:
+			break
+		
+		if action == "beat":
+			beat_level += 1
+		else:
+			beat_level = 1
+			music_level += 1
+		i += 1
+	
+	emit_signal("music_level", music_level)
+	
+	$LevelsContainer.level = beat_level

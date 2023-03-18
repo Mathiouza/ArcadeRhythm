@@ -10,16 +10,16 @@ export var y = 0
 export var sprite_size = 16
 
 func _ready():
-	$Sprite.modulate = color
+	$Sprite.material.set_shader_param("color", color)
 	set_pos(x, y)
 
 func set_x(x: int):
 	self.x = x
-	position = Vector2(self.x*16, self.y*16)
+	position = Vector2(self.x*sprite_size, self.y*sprite_size)
 
 func set_y(y: int):
 	self.y = y
-	position = Vector2(self.x*16, self.y*16)
+	position = Vector2(self.x*sprite_size, self.y*sprite_size)
 
 func set_pos(x: int, y: int):
 	set_x(x)
