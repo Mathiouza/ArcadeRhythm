@@ -31,6 +31,5 @@ stream = ExtResource( 6 )
 [node name="Terrain1" parent="." instance=ExtResource( 7 )]
 
 [node name="Terrain2" parent="." instance=ExtResource( 7 )]
-visible = false
 position = Vector2( 338, 22 )
 controller = 1
