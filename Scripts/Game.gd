@@ -6,6 +6,8 @@ var bpms = [
 	100, 125, 150, 175, 200
 ]
 
+export var two_players = false
+
 func _ready():
 	audio_players = [
 		$a100,
@@ -14,6 +16,13 @@ func _ready():
 		$a175,
 		$a200
 	]
+	
+	if two_players:
+		$Terrain2.visible = true
+		$Terrain2.active = true
+	else:
+		$Terrain2.visible = false
+		$Terrain2.active = false
 
 func _process(delta):
 	var prec_speed = speed

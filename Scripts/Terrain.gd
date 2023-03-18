@@ -46,35 +46,39 @@ var on_beat = false
 
 var square_positions: PoolVector2Array = []
 
+var active = true
+
 func _ready():
 	randomize()
 	
 	place()
 
 func _process(delta):
-	if Input.is_action_just_pressed(str(controller)+"up") && check_for_edges(current_piece.x, current_piece.y-1, current_piece.rot, current_piece.square_positions):
-		current_piece.move(0, -1)
-	
-	if Input.is_action_just_pressed(str(controller)+"right") && check_for_edges(current_piece.x+1, current_piece.y, current_piece.rot, current_piece.square_positions):
-		current_piece.move(1, 0)
-	
-	if Input.is_action_just_pressed(str(controller)+"down") && check_for_edges(current_piece.x, current_piece.y+1, current_piece.rot, current_piece.square_positions):
-		current_piece.move(0, 1)
-	
-	if Input.is_action_just_pressed(str(controller)+"left") && check_for_edges(current_piece.x-1, current_piece.y, current_piece.rot, current_piece.square_positions):
-		current_piece.move(-1, 0)
-	
-	if Input.is_action_just_pressed(str(controller)+"red1") && check_for_edges(current_piece.x, current_piece.y, current_piece.rot+1, current_piece.square_positions):
-		current_piece.turn(true)
-	
-	if Input.is_action_just_pressed(str(controller)+"red2") && check_for_edges(current_piece.x, current_piece.y, current_piece.rot-1, current_piece.square_positions):
-		current_piece.turn(false)
-	
-	if Input.is_action_just_pressed(str(controller)+"yellow1") && check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
-		if on_beat:
-			print("on beat")
+	if active:
 		
-		place()
+		if Input.is_action_just_pressed(str(controller)+"up") && check_for_edges(current_piece.x, current_piece.y-1, current_piece.rot, current_piece.square_positions):
+			current_piece.move(0, -1)
+		
+		if Input.is_action_just_pressed(str(controller)+"right") && check_for_edges(current_piece.x+1, current_piece.y, current_piece.rot, current_piece.square_positions):
+			current_piece.move(1, 0)
+		
+		if Input.is_action_just_pressed(str(controller)+"down") && check_for_edges(current_piece.x, current_piece.y+1, current_piece.rot, current_piece.square_positions):
+			current_piece.move(0, 1)
+		
+		if Input.is_action_just_pressed(str(controller)+"left") && check_for_edges(current_piece.x-1, current_piece.y, current_piece.rot, current_piece.square_positions):
+			current_piece.move(-1, 0)
+		
+		if Input.is_action_just_pressed(str(controller)+"red1") && check_for_edges(current_piece.x, current_piece.y, current_piece.rot+1, current_piece.square_positions):
+			current_piece.turn(true)
+		
+		if Input.is_action_just_pressed(str(controller)+"red2") && check_for_edges(current_piece.x, current_piece.y, current_piece.rot-1, current_piece.square_positions):
+			current_piece.turn(false)
+		
+		if Input.is_action_just_pressed(str(controller)+"yellow1") && check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
+			if on_beat:
+				print("on beat")
+			
+			place()
 
 func place():
 	if current_piece != null:
