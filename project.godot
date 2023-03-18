@@ -30,11 +30,10 @@ config/name="Arcade Rhythm"
 
 [display]
 
-window/size/width=500
-window/size/height=400
+window/size/width=1280
+window/size/height=1024
 window/size/resizable=false
 window/size/borderless=true
-window/size/fullscreen=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
