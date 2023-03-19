@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Terrain.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Terrain.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Scripts/BeatsContainer.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/ScoreAnimation.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/LevelsContainer.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Panel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Heart.tscn" type="PackedScene" id=9]
 
 [node name="Terrain" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,16 +23,45 @@ centered = false
 unique_name_in_owner = true
 position = Vector2( 8, 8 )
 
+[node name="Panel" parent="." instance=ExtResource( 8 )]
+margin_left = 1.0
+margin_top = -92.0
+margin_right = 96.0
+margin_bottom = -4.0
+
 [node name="Next" type="Label" parent="."]
-margin_top = -76.0
-margin_right = 40.0
-margin_bottom = -58.0
+margin_left = 13.0
+margin_top = -82.0
+margin_right = 53.0
+margin_bottom = -64.0
 custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "NEXT:"
 
 [node name="NextPieceContainer" type="Node2D" parent="."]
-position = Vector2( 16, -48 )
+position = Vector2( 31, -57 )
+
+[node name="Score" type="Label" parent="."]
+margin_top = 104.0
+margin_right = 42.0
+margin_bottom = 122.0
+custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Score:"
+
+[node name="Heart" parent="." instance=ExtResource( 9 )]
+position = Vector2( 117, 17 )
+scale = Vector2( 2, 2 )
+
+[node name="ScoreNumber" type="Label" parent="."]
+margin_left = 47.0
+margin_top = 104.0
+margin_right = 98.0
+margin_bottom = 122.0
+custom_fonts/font = ExtResource( 4 )
+text = "000000"
+align = 1
+script = ExtResource( 6 )
 
 [node name="LevelsContainer" type="Node2D" parent="."]
 position = Vector2( -16, 0 )
@@ -38,10 +69,11 @@ script = ExtResource( 7 )
 
 [node name="Level1" type="Node2D" parent="LevelsContainer"]
 script = ExtResource( 5 )
+current_beat = 1
 lit = Color( 0.8, 0.45098, 0.113725, 1 )
 
 [node name="Beat" parent="LevelsContainer/Level1" instance=ExtResource( 3 )]
-color = Color( 0.2, 0.2, 0.2, 1 )
+color = Color( 0.8, 0.45098, 0.113725, 1 )
 
 [node name="Beat2" parent="LevelsContainer/Level1" instance=ExtResource( 3 )]
 position = Vector2( 0, 16 )
@@ -180,24 +212,6 @@ color = Color( 0.8, 0.45098, 0.113725, 1 )
 position = Vector2( 0, 56 )
 length = 7
 color = Color( 0.8, 0.45098, 0.113725, 1 )
-
-[node name="Score" type="Label" parent="."]
-margin_top = 104.0
-margin_right = 40.0
-margin_bottom = 118.0
-custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
-custom_fonts/font = ExtResource( 4 )
-text = "Score:"
-
-[node name="ScoreNumber" type="Label" parent="."]
-margin_left = 47.0
-margin_top = 104.0
-margin_right = 98.0
-margin_bottom = 122.0
-custom_fonts/font = ExtResource( 4 )
-text = "000000"
-align = 1
-script = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2

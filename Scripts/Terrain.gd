@@ -111,14 +111,16 @@ func _process(delta):
 		if Input.is_action_just_pressed(str(controller)+"red2") && check_for_edges(current_piece.x, current_piece.y, current_piece.rot-1, current_piece.square_positions):
 			current_piece.turn(false)
 		
-		if Input.is_action_just_pressed(str(controller)+"yellow1") && check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
-			if on_beat:
-				print("on beat")
-			
-			place()
-			current_beat = 0
-			update_display_beat()
-
+		if Input.is_action_just_pressed(str(controller)+"yellow1"):
+			if check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
+				if on_beat:
+					print("on beat")
+				
+				place()
+				current_beat = 0
+				update_display_beat()
+			else:
+				current_piece.wrong_placement_animation()
 
 func place():
 	if current_piece != null:
@@ -164,8 +166,13 @@ func place():
 func force_placement():
 	if !check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
 		emit_signal("gameover")
+		hit_animation()
 	else:
 		place()
+
+func hit_animation():
+	for square in squares:
+		square.fall()
 
 func check_for_placement(offsetX, offsetY, offsetRot, blocks) -> bool:
 	var positions = get_block_positions_on_terrain(offsetX, offsetY, offsetRot, blocks)
