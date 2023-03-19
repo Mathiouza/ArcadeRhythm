@@ -48,6 +48,18 @@ func pulsate():
 	$PulsateTween.interpolate_property(self, "scale", Vector2(1.2, 1.2), Vector2(1, 1), .1, Tween.TRANS_CIRC, Tween.EASE_IN)
 	$PulsateTween.start()
 
+func wrong_placement_animation():
+	var step = PI/16
+	
+	$RotationTween.stop_all()
+	$RotationTween.interpolate_property(self, "rotation", rot*PI/2, rot*PI/2 + step, .03)
+	$RotationTween.interpolate_property(self, "rotation", rot*PI/2 + step, rot*PI/2, .03)
+	$RotationTween.interpolate_property(self, "rotation", rot*PI/2, rot*PI/2 - step, .03)
+	$RotationTween.interpolate_property(self, "rotation", rot*PI/2 - step, rot*PI/2, .03)
+	$RotationTween.interpolate_property(self, "rotation", rot*PI/2, rot*PI/2 + step, .03)
+	$RotationTween.interpolate_property(self, "rotation", rot*PI/2 + step, rot*PI/2, .03)
+	$RotationTween.start()
+
 func get_piece_rotation():
 	return rot
 

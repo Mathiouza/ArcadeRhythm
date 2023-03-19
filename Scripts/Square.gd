@@ -9,9 +9,24 @@ export var y = 0
 
 export var sprite_size = 16
 
+var is_falling = false
+
+var speed = Vector2(0, 0)
+var rotation_speed = 0
+
 func _ready():
 	$Sprite.material.set_shader_param("color", color)
 	set_pos(x, y)
+
+func _process(delta):
+	if is_falling:
+		speed += Vector2(0, 300) * delta
+		
+		position += speed * delta
+		rotation += rotation_speed * delta
+		
+		if position.y > 500:
+			queue_free()
 
 func set_x(x: int):
 	self.x = x
@@ -24,3 +39,9 @@ func set_y(y: int):
 func set_pos(x: int, y: int):
 	set_x(x)
 	set_y(y)
+
+func fall():
+	is_falling = true
+	
+	speed = Vector2(-1 + randf()*2, -1 + randf()*2) * 100
+	rotation_speed = randf() * PI

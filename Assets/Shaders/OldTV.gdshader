@@ -48,7 +48,8 @@ void fragment() {
 			
 			float luminance = new_color.r * 0.2126 + new_color.g * 0.7152 + new_color.b * 0.0722;
 			
-			if(luminance > 0.4 && luminance < 0.5) {
+			if(luminance > 0.4 && luminance < 0.5 || 
+				new_color.r > 0.944 && new_color.r < 0.946 && new_color.g > 0.191 && new_color.g < 0.193 && new_color.b > 0.070 && new_color.b < 0.073) {
 				COLOR += vec4(new_color.rgb * vec3(float(10-i)), 0.0) * 0.05;
 				finish = true;
 				break;
@@ -61,6 +62,7 @@ void fragment() {
 	}
 	
 	/* 204 115 29 0.8 0.45 0.101
+	241 49 18   0.945 0.192 0.071
 	float bornedTime = time;
 	while(bornedTime >= 10.0) bornedTime -= 10.0;
 	

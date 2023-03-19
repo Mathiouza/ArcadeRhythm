@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sounds/maintheme125.ogg" type="AudioStream" id=2]
@@ -6,9 +6,15 @@
 [ext_resource path="res://Assets/Sounds/maintheme100.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Assets/Sounds/maintheme175.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sounds/maintheme200.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Scenes/Terrain.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Sprites/Background.png" type="Texture" id=8]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 8 )
+centered = false
 
 [node name="a100" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
@@ -25,3 +31,11 @@ stream = ExtResource( 5 )
 
 [node name="a200" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+
+[node name="Terrain1" parent="." instance=ExtResource( 7 )]
+position = Vector2( 170, 112 )
+
+[node name="Terrain2" parent="." instance=ExtResource( 7 )]
+visible = false
+position = Vector2( 258, 112 )
+controller = 1
