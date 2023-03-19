@@ -79,20 +79,15 @@ func _ready():
 		place()
 		set_score(0)
 
-var time = 0.0
-
 func update_display_beat():
 	if current_beat >= $LevelsContainer.get_number_of_beats():
 		force_placement()
 		current_beat = 0
 	
 	$LevelsContainer.current_beat = current_beat + 1
-	time -= 60.0/150
 
 func _process(delta):
-
 	if !Engine.editor_hint && active:
-		
 		if Input.is_action_just_pressed(str(controller)+"up") && check_for_edges(current_piece.x, current_piece.y-1, current_piece.rot, current_piece.square_positions):
 			current_piece.move(0, -1)
 		
@@ -147,7 +142,7 @@ func place():
 		next_piece.queue_free()
 	
 	next_piece = Piece.instance()
-	next_piece.color = level_colors[actual_level-1]
+	next_piece.color = level_colors[min(actual_level-1, level_colors.size()-1)]
 	next_piece.square_positions = shapes[randi() % SHAPE.size()]
 	$NextPieceContainer.add_child(next_piece)
 	
@@ -157,7 +152,7 @@ func place():
 	current_piece.y = 2
 	current_piece.rot = 0
 	current_piece.square_positions = blocks
-	current_piece.color = level_colors[actual_level-1]
+	current_piece.color = level_colors[min(actual_level-1, level_colors.size()-1)]
 	
 	add_child(current_piece)
 	
@@ -165,8 +160,14 @@ func place():
 
 func force_placement():
 	if !check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
-		emit_signal("gameover")
+		$HeartsContainer.lives -= 1
 		hit_animation()
+		if $HeartsContainer.lives == 0:
+			emit_signal("gameover")
+			active = false
+		else:
+			square_positions = []
+			squares = []
 	else:
 		place()
 
@@ -250,12 +251,13 @@ func check_for_clears():
 	set_score(score + actualPoints)
 
 func pulsate():
-	on_beat = true
-	$Timer.start()
-	if current_piece != null:
-		current_piece.pulsate()
-	current_beat += 1			
-	update_display_beat()
+	if active:
+		on_beat = true
+		$Timer.start()
+		if current_piece != null:
+			current_piece.pulsate()
+		current_beat += 1
+		update_display_beat()
 
 func _on_Timer_timeout():
 	on_beat = false
@@ -264,8 +266,10 @@ func set_controller(new_controller):
 	controller = new_controller
 	if controller == 0:
 		$LevelsContainer.position = Vector2(-16, 0)
+		$HeartsContainer.position = Vector2(116, 19)
 	else:
 		$LevelsContainer.position = Vector2(6*16+16, 0)
+		$HeartsContainer.position = Vector2(-20, 19)
 
 func set_score(new_score):
 	score = new_score
@@ -280,6 +284,9 @@ func set_score(new_score):
 	$ScoreNumber.score = score
 
 func set_level(new_level):
+	if new_level > actual_level:
+		$Message.start_animation("LEVEL UP!")
+	
 	actual_level = new_level
 	
 	current_piece.color = level_colors

@@ -24,6 +24,9 @@ func _process(delta):
 		
 		position += speed * delta
 		rotation += rotation_speed * delta
+		
+		if position.y > 500:
+			queue_free()
 
 func set_x(x: int):
 	self.x = x

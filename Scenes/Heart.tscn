@@ -4,8 +4,9 @@
 [ext_resource path="res://Assets/Shaders/BeatShader.tres" type="Shader" id=2]
 
 [sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
 shader = ExtResource( 2 )
-shader_param/color = Color( 0.945098, 0.192157, 0.0705882, 1 )
+shader_param/color = Color( 0.2, 0.2, 0.2, 1 )
 
 [node name="Heart" type="Sprite"]
 material = SubResource( 1 )

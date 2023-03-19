@@ -37,5 +37,5 @@ position = Vector2( 170, 112 )
 
 [node name="Terrain2" parent="." instance=ExtResource( 7 )]
 visible = false
-position = Vector2( 254, 112 )
+position = Vector2( 258, 112 )
 controller = 1
