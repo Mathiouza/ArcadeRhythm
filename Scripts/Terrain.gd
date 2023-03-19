@@ -69,6 +69,8 @@ var forced_level = 1
 
 var square_positions: PoolVector2Array = []
 
+var active = true
+
 func _ready():
 	if !Engine.editor_hint:
 		randomize()
@@ -88,15 +90,8 @@ func update_display_beat():
 	time -= 60.0/150
 
 func _process(delta):
-	if !Engine.editor_hint:
-		time += delta
-		if time >= 60.0/150:
-			if current_piece != null:
-				current_piece.pulsate()
-			
-			current_beat += 1
-			
-			update_display_beat()
+
+	if !Engine.editor_hint && active:
 		
 		if Input.is_action_just_pressed(str(controller)+"up") && check_for_edges(current_piece.x, current_piece.y-1, current_piece.rot, current_piece.square_positions):
 			current_piece.move(0, -1)
@@ -121,9 +116,9 @@ func _process(delta):
 				print("on beat")
 			
 			place()
-			
 			current_beat = 0
 			update_display_beat()
+
 
 func place():
 	if current_piece != null:
@@ -252,6 +247,8 @@ func pulsate():
 	$Timer.start()
 	if current_piece != null:
 		current_piece.pulsate()
+	current_beat += 1			
+	update_display_beat()
 
 func _on_Timer_timeout():
 	on_beat = false
