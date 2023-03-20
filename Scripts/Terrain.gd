@@ -2,7 +2,7 @@ tool
 extends Node2D
 
 signal gameover
-signal music_level(music_level)
+signal music_level(music_level, forced_level)
 
 var Piece = preload("res://Scenes/Piece.tscn")
 var Square = preload("res://Scenes/Square.tscn")
@@ -49,10 +49,10 @@ var number_of_beats = 6
 var on_beat = false
 
 var level_thresholds = [
-	2000, 4000, 6000, 8000, 10000, 12000, 14000
+	1000, 2000, 3000, 4000, 5000
 ]
 var level_actions = [
-	"beat", "beat", "beat", "music", "beat", "beat", "beat"
+	"music", "music", "music", "music", "music",
 ]
 var level_colors = [
 	Color("#5de04f"),
@@ -319,6 +319,6 @@ func level_up():
 			music_level += 1
 		i += 1
 	
-	emit_signal("music_level", music_level)
+	emit_signal("music_level", music_level, forced_level)
 	
 	$LevelsContainer.level = beat_level

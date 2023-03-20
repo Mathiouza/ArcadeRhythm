@@ -34,4 +34,3 @@ margin_bottom = 341.0
 color = Color( 0.137255, 0.137255, 0.137255, 1 )
 
 [node name="Game" parent="ViewportContainer/Viewport/Container" instance=ExtResource( 1 )]
-two_players = true
