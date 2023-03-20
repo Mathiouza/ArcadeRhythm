@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sounds/maintheme125.ogg" type="AudioStream" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/Sounds/maintheme200.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Scenes/Terrain.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Sprites/Background.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/Message.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,7 +19,6 @@ centered = false
 
 [node name="a100" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-autoplay = true
 
 [node name="a125" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
@@ -39,3 +39,9 @@ position = Vector2( 170, 112 )
 visible = false
 position = Vector2( 258, 112 )
 controller = 1
+
+[node name="Message" parent="." instance=ExtResource( 9 )]
+position = Vector2( 213, 169 )
+text = "3"
+
+[node name="Tween" type="Tween" parent="."]

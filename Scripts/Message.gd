@@ -13,6 +13,8 @@ func set_text(new_value):
 
 func start_animation(text):
 	set_text(text)
+	$Tween.stop_all()
+	$Tween2.stop_all()
 	$Tween.interpolate_property(self, "scale", Vector2(2, 2), Vector2(1, 1), .4, Tween.TRANS_BACK, Tween.EASE_OUT)
 	$Tween2.interpolate_property(self, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), .2, Tween.TRANS_QUART, Tween.EASE_OUT)
 	$Tween.interpolate_callback(self, 1, "end_animation")
