@@ -47,9 +47,13 @@ func _process(delta):
 
 func change_tempo(prec_speed, new_speed):
 	var pos = audio_players[prec_speed].get_playback_position()
-	audio_players[prec_speed].stop()
+
+	for player in audio_players:
+		player.volume_db = -200
+		player.stop()
 	
 	audio_players[speed].play(pos * bpms[prec_speed] / bpms[speed])
+	audio_players[speed].volume_db = 0
 	
 	audio_position *= bpms[prec_speed] / bpms[speed]
 
@@ -67,14 +71,19 @@ func set_two_players(new_value):
 
 
 func _on_Terrain1_music_level(music_level, forced_level):
-	if music_level == actual_level:
+	if music_level > actual_level:
 		$Terrain2.set_forced_level(forced_level)
-	actual_level = music_level
-	var prec_speed = speed
-	speed = music_level - 2
-	print(speed)
-	change_tempo(prec_speed, speed)
+		music_level_up(music_level)
 
 
 func _on_Terrain2_music_level(music_level, forced_level):
-	pass # Replace with function body.
+	if music_level > actual_level:
+		$Terrain1.set_forced_level(forced_level)
+		music_level_up(music_level)
+
+
+func music_level_up(music_level):
+	actual_level = music_level
+	var prec_speed = speed
+	speed = music_level - 1
+	change_tempo(prec_speed, speed)

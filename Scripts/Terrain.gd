@@ -49,10 +49,10 @@ var number_of_beats = 6
 var on_beat = false
 
 var level_thresholds = [
-	1000, 2000, 3000, 4000, 5000
+	300, 500, 3000, 4000
 ]
 var level_actions = [
-	"music", "music", "music", "music", "music",
+	"music", "music", "music", "music",
 ]
 var level_colors = [
 	Color("#5de04f"),
@@ -307,7 +307,7 @@ func level_up():
 	var beat_level = 1
 	var music_level = 1
 	
-	var i = 0
+	var i = 1
 	for action in level_actions:
 		if i == forced_level:
 			break
