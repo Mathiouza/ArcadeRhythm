@@ -52,6 +52,7 @@ func preparation():
 func reset():
 	audio_position = 0
 	speed = 0
+	$PressedPanel/Level1.current_beat = speed + 1
 	$Terrain1.reset()
 	$Terrain2.reset()
 
@@ -65,6 +66,8 @@ func play():
 func change_tempo(prec_speed, new_speed):
 	var pos = audio_players[prec_speed].get_playback_position()
 	audio_players[prec_speed].stop()
+	
+	$PressedPanel/Level1.current_beat = speed + 1
 	
 	audio_players[speed].play(pos * bpms[prec_speed] / bpms[speed])
 	
