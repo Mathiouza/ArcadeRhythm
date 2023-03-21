@@ -69,7 +69,7 @@ var forced_level = 1
 
 var square_positions: PoolVector2Array = []
 
-var active = true
+var active = false
 
 func _ready():
 	if !Engine.editor_hint:
@@ -116,6 +116,30 @@ func _process(delta):
 				update_display_beat()
 			else:
 				current_piece.wrong_placement_animation()
+
+func reset():
+	actual_level = 1
+	forced_level = 1
+	current_beat = 0
+	number_of_beats = 6
+	if current_piece != null:
+		current_piece.queue_free()
+	current_piece = null
+	if next_piece != null:
+		next_piece.queue_free()
+	next_piece = null
+	for i in squares:
+		i.queue_free()
+	squares = []
+	square_positions = []
+	$LevelsContainer.current_beat = current_beat + 1
+	place()
+	set_score(0)
+	$HeartsContainer.lives = 3
+	$LevelsContainer.level = actual_level
+
+func play():
+	active = true
 
 func place():
 	if current_piece != null:
