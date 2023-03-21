@@ -91,3 +91,6 @@ position = Vector2( 213, 169 )
 text = "3"
 
 [node name="Tween" type="Tween" parent="."]
+
+[connection signal="music_level" from="Terrain1" to="." method="_on_Terrain1_music_level"]
+[connection signal="music_level" from="Terrain2" to="." method="_on_Terrain2_music_level"]

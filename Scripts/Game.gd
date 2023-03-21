@@ -17,6 +17,8 @@ var bpms = [
 ]
 var audio_position = 0.0
 
+var actual_level = 1
+
 export var two_players = false setget set_two_players
 
 var playing = false
@@ -26,10 +28,6 @@ func _ready():
 
 func _process(delta):
 	if !Engine.editor_hint && playing:
-		var prec_speed = speed
-		
-		if prec_speed != speed:
-			change_tempo(prec_speed, speed)
 			
 		var new_audio_position = audio_players[speed].get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 		
@@ -40,7 +38,7 @@ func _process(delta):
 		if (new_audio_position - audio_position) >= time_check:
 			$Terrain1.pulsate()
 			$Terrain2.pulsate()
-			audio_position += time_check
+			audio_position = new_audio_position
 
 func preparation():
 	$Tween.interpolate_callback($Message, 0, "start_animation", "3")
@@ -65,11 +63,15 @@ func play():
 
 func change_tempo(prec_speed, new_speed):
 	var pos = audio_players[prec_speed].get_playback_position()
-	audio_players[prec_speed].stop()
+
+	for player in audio_players:
+		player.volume_db = -200
+		player.stop()
 	
 	$PressedPanel/Level1.current_beat = speed + 1
 	
 	audio_players[speed].play(pos * bpms[prec_speed] / bpms[speed])
+	audio_players[speed].volume_db = 0
 	
 	audio_position *= bpms[prec_speed] / bpms[speed]
 
@@ -83,3 +85,23 @@ func set_two_players(new_value):
 		$Terrain1.position = Vector2(71 if two_players else 170, $Terrain1.position.y)
 		
 		$Background.texture = background_two_players_texture if two_players else background_texture
+
+
+
+func _on_Terrain1_music_level(music_level, forced_level):
+	if music_level > actual_level:
+		$Terrain2.set_forced_level(forced_level)
+		music_level_up(music_level)
+
+
+func _on_Terrain2_music_level(music_level, forced_level):
+	if music_level > actual_level:
+		$Terrain1.set_forced_level(forced_level)
+		music_level_up(music_level)
+
+
+func music_level_up(music_level):
+	actual_level = music_level
+	var prec_speed = speed
+	speed = music_level - 1
+	change_tempo(prec_speed, speed)
