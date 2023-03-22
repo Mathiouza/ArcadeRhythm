@@ -1,0 +1,115 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Sprites/Background.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Fonts/pixels.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/LetterChoice.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/NameChoice.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/GameoverSinglePlayer.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/ScoreAnimation.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Fonts/pixels-dynamic.tres" type="DynamicFont" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "GameoverSingleplayerIn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 0.517632 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.159968 ),
+"transitions": PoolRealArray( 1, 2.63902 ),
+"update": 0,
+"values": [ Vector2( 2.5, 2.5 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.149102, 0.173854, 0.199986, 0.22847, 0.242896, 0.279581 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -6.1, 2.0, 3.0, -6.1, 0.0 ]
+}
+
+[node name="GameoverSinglePlayer" type="Sprite"]
+position = Vector2( 213, 170.5 )
+texture = ExtResource( 1 )
+script = ExtResource( 5 )
+
+[node name="GameOverLabel" type="Label" parent="."]
+anchor_right = 1.0
+margin_left = -213.0
+margin_top = -115.5
+margin_right = -213.0
+margin_bottom = -43.5
+custom_fonts/font = SubResource( 1 )
+text = "GAME OVER!"
+align = 1
+
+[node name="NameChoice" type="Node2D" parent="."]
+position = Vector2( 6, 30.5 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="LetterChoice1" parent="NameChoice" instance=ExtResource( 3 )]
+position = Vector2( -20, 0 )
+selected = true
+
+[node name="LetterChoice2" parent="NameChoice" instance=ExtResource( 3 )]
+
+[node name="LetterChoice3" parent="NameChoice" instance=ExtResource( 3 )]
+position = Vector2( 20, 0 )
+
+[node name="ScoreContainer" type="Node2D" parent="."]
+position = Vector2( -89, -50.5 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ScoreLabel" type="Label" parent="ScoreContainer"]
+margin_right = 42.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "Score:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Score" type="Label" parent="ScoreContainer"]
+margin_left = 46.0
+margin_right = 94.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 7 )
+text = "000000"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/GameoverSingleplayerIn = SubResource( 2 )

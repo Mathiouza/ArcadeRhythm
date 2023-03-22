@@ -1,6 +1,8 @@
 tool
 extends Node2D
 
+signal gameover_single(score)
+
 var background_texture = preload("res://Assets/Sprites/Background.png")
 var background_two_players_texture = preload("res://Assets/Sprites/BackgroundTwoPlayers.png")
 
@@ -28,7 +30,6 @@ func _ready():
 
 func _process(delta):
 	if !Engine.editor_hint && playing:
-			
 		var new_audio_position = audio_players[speed].get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 		
 		if new_audio_position < audio_position - 10:
@@ -40,6 +41,13 @@ func _process(delta):
 			$Terrain2.pulsate()
 			audio_position = new_audio_position
 
+func stop():
+	for player in audio_players:
+		player.volume_db = -200
+		player.stop()
+	$Terrain1.active = false
+	$Terrain2.active = false
+
 func preparation():
 	$Tween.interpolate_callback($Message, 0, "start_animation", "3")
 	$Tween.interpolate_callback($Message, 1, "start_animation", "2")
@@ -50,7 +58,7 @@ func preparation():
 func reset():
 	audio_position = 0
 	speed = 0
-	$PressedPanel/Level1.current_beat = speed + 1
+	$MusicSpeedContainer/MusicSpeed.current_beat = speed + 1
 	$Terrain1.reset()
 	$Terrain2.reset()
 
@@ -68,7 +76,7 @@ func change_tempo(prec_speed, new_speed):
 		player.volume_db = -200
 		player.stop()
 	
-	$PressedPanel/Level1.current_beat = speed + 1
+	$MusicSpeedContainer/MusicSpeed.current_beat = speed + 1
 	
 	audio_players[speed].play(pos * bpms[prec_speed] / bpms[speed])
 	audio_players[speed].volume_db = 0
@@ -86,22 +94,22 @@ func set_two_players(new_value):
 		
 		$Background.texture = background_two_players_texture if two_players else background_texture
 
-
-
 func _on_Terrain1_music_level(music_level, forced_level):
 	if music_level > actual_level:
 		$Terrain2.set_forced_level(forced_level)
 		music_level_up(music_level)
-
 
 func _on_Terrain2_music_level(music_level, forced_level):
 	if music_level > actual_level:
 		$Terrain1.set_forced_level(forced_level)
 		music_level_up(music_level)
 
-
 func music_level_up(music_level):
 	actual_level = music_level
 	var prec_speed = speed
 	speed = music_level - 1
 	change_tempo(prec_speed, speed)
+
+func _on_gameover(num_terrain):
+	if !two_players:
+		emit_signal("gameover_single", $Terrain1.score)
