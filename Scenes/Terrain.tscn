@@ -247,9 +247,3 @@ centered = false
 [node name="BlocksContainer" type="Node2D" parent="TerrainContainer"]
 unique_name_in_owner = true
 position = Vector2( 8, 8 )
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

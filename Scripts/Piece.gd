@@ -4,7 +4,7 @@ class_name Piece
 
 var Square = preload("res://Scenes/Square.tscn")
 
-export(PoolVector2Array) var square_positions = []
+export(PoolVector2Array) var square_positions = PoolVector2Array([])
 export(Color) var color = Color("#4287f5")
 
 var squares = []

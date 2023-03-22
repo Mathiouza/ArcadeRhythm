@@ -28,17 +28,17 @@ func _process(delta):
 		if position.y > 500:
 			queue_free()
 
-func set_x(x: int):
-	self.x = x
-	position = Vector2(self.x*sprite_size, self.y*sprite_size)
+func set_x(new_x: int):
+	x = new_x
+	position = Vector2(x*sprite_size, y*sprite_size)
 
-func set_y(y: int):
-	self.y = y
-	position = Vector2(self.x*sprite_size, self.y*sprite_size)
+func set_y(new_y: int):
+	y = new_y
+	position = Vector2(x*sprite_size, y*sprite_size)
 
-func set_pos(x: int, y: int):
-	set_x(x)
-	set_y(y)
+func set_pos(new_x: int, new_y: int):
+	set_x(new_x)
+	set_y(new_y)
 
 func fall():
 	is_falling = true

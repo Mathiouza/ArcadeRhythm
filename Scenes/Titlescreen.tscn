@@ -21,16 +21,16 @@ texture = ExtResource( 2 )
 centered = false
 script = ExtResource( 10 )
 
-[node name="PressedPanel" parent="." instance=ExtResource( 4 )]
+[node name="HighscoreContainer" parent="." instance=ExtResource( 4 )]
 margin_left = 293.0
 margin_top = 40.0
 margin_right = 398.0
 margin_bottom = 289.0
 
-[node name="Label" type="Label" parent="PressedPanel"]
-margin_top = 11.0
+[node name="HighscoreLabel" type="Label" parent="HighscoreContainer"]
+margin_top = 12.0
 margin_right = 105.0
-margin_bottom = 239.0
+margin_bottom = 240.0
 custom_fonts/font = ExtResource( 3 )
 text = "Highscore
 AAA 999999
