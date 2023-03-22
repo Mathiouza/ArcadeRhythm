@@ -117,7 +117,7 @@ func reset():
 	actual_level = 1
 	forced_level = 1
 	current_beat = 0
-	number_of_beats = 6
+	number_of_beats = 7
 	if current_piece != null:
 		current_piece.queue_free()
 	current_piece = null
@@ -133,7 +133,7 @@ func reset():
 	place()
 	set_score(0)
 	$HeartsContainer.lives = 3
-	$LevelsContainer.level = actual_level
+	$LevelsContainer.level = 1
 	$Message.reset()
 
 func play():
