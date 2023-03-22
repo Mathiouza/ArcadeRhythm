@@ -27,7 +27,7 @@ func set_active_letter(new_value):
 			child.selected = false
 		get_child(active_letter).selected = true
 
-func _process(delta):
+func _process(_delta):
 	if !Engine.editor_hint && active:
 		if Input.is_action_just_pressed("0left"):
 			set_active_letter((active_letter - 1 + 3) % 3)

@@ -85,7 +85,7 @@ func update_display_beat():
 	
 	$LevelsContainer.current_beat = current_beat + 1
 
-func _process(delta):
+func _process(_delta):
 	if !Engine.editor_hint && active:
 		if Input.is_action_just_pressed(str(controller)+"up") && check_for_edges(current_piece.x, current_piece.y-1, current_piece.rot, current_piece.square_positions):
 			current_piece.move(0, -1)

@@ -12,7 +12,7 @@ var highscores = []
 func _ready():
 	load_scores()
 
-func _process(delta):
+func _process(_delta):
 	if focused:
 		if Input.is_action_just_pressed("0player"):
 			start(false)
@@ -61,10 +61,8 @@ func load_scores():
 
 func update_highscore_label():
 	$HighscoreContainer/HighscoreLabel.text = "Highscores"
-	var i = 0
 	for highscore in highscores:
 		$HighscoreContainer/HighscoreLabel.text += "\n" + highscore
-		i += 1
 
 func start(two_players: bool):
 	$AudioStreamPlayer.stop()

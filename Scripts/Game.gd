@@ -26,7 +26,7 @@ var playing = false
 func _ready():
 	set_two_players(two_players)
 
-func _process(delta):
+func _process(_delta):
 	if !Engine.editor_hint && playing:
 		var new_audio_position = audio_players[speed].get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 		
@@ -81,10 +81,10 @@ func change_tempo(prec_speed, new_speed):
 	
 	$MusicSpeedContainer/MusicSpeed.current_beat = speed + 1
 	
-	audio_players[speed].play(pos * bpms[prec_speed] / bpms[speed])
+	audio_players[speed].play(pos * bpms[prec_speed] / bpms[new_speed])
 	audio_players[speed].volume_db = 0
 	
-	audio_position *= bpms[prec_speed] / bpms[speed]
+	audio_position *= bpms[prec_speed] / bpms[new_speed]
 
 func set_two_players(new_value):
 	if $Terrain2 != null:

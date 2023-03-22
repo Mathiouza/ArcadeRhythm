@@ -11,8 +11,8 @@ func set_text(new_value):
 	if label != null:
 		label.text = text
 
-func start_animation(text):
-	set_text(text)
+func start_animation(new_text):
+	set_text(new_text)
 	$Tween.stop_all()
 	$Tween2.stop_all()
 	$Tween.interpolate_property(self, "scale", Vector2(2, 2), Vector2(1, 1), .4, Tween.TRANS_BACK, Tween.EASE_OUT)

@@ -51,7 +51,7 @@ func start_init_animation(score):
 	$ScoreContainer/Score.score = score
 	$AnimationPlayer.play("GameoverSingleplayerIn")
 
-func _process(delta):
+func _process(_delta):
 	if active:
 		if Input.is_action_just_pressed("0red1") || Input.is_action_just_pressed("0red2"):
 			save_scores()

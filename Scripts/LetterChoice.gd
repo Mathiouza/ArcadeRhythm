@@ -13,7 +13,7 @@ func set_selected(new_value):
 		$ArrowBottom.visible = selected
 		$ArrowTop.visible = selected
 
-func _process(delta):
+func _process(_delta):
 	if !Engine.editor_hint && selected:
 		if Input.is_action_just_pressed("0up"):
 			current_letter = (current_letter - 1 + 26) % 26
