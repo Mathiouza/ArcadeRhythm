@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Titlescreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Shaders/OldTV.gdshader" type="Shader" id=2]
 [ext_resource path="res://Scenes/Game.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Application.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/GameoverSinglePlayer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/GameoverTwoPlayer.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 2 )
@@ -40,6 +41,15 @@ visible = false
 [node name="GameoverSinglePlayer" parent="ViewportContainer/Viewport/GameContainer" instance=ExtResource( 5 )]
 visible = false
 
+[node name="GameoverTwoPlayer" parent="ViewportContainer/Viewport/GameContainer" instance=ExtResource( 6 )]
+visible = false
+
+[node name="Timer" type="Timer" parent="ViewportContainer/Viewport/GameContainer"]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="start_game" from="ViewportContainer/Viewport/GameContainer/Titlescreen" to="ViewportContainer/Viewport/GameContainer" method="_on_Titlescreen_start_game"]
 [connection signal="gameover_single" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_single"]
+[connection signal="gameover_two" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_two"]
 [connection signal="get_out" from="ViewportContainer/Viewport/GameContainer/GameoverSinglePlayer" to="ViewportContainer/Viewport/GameContainer" method="_on_GameoverSinglePlayer_get_out"]
+[connection signal="timeout" from="ViewportContainer/Viewport/GameContainer/Timer" to="ViewportContainer/Viewport/GameContainer" method="_on_Timer_timeout"]

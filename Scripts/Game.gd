@@ -2,6 +2,7 @@ tool
 extends Node2D
 
 signal gameover_single(score)
+signal gameover_two(num_terrain)
 
 var background_texture = preload("res://Assets/Sprites/Background.png")
 var background_two_players_texture = preload("res://Assets/Sprites/BackgroundTwoPlayers.png")
@@ -115,3 +116,5 @@ func music_level_up(music_level):
 func _on_gameover(num_terrain):
 	if !two_players:
 		emit_signal("gameover_single", $Terrain1.score)
+	else:
+		emit_signal("gameover_two", num_terrain)
