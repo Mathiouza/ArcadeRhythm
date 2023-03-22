@@ -35,9 +35,10 @@ func _process(_delta):
 		
 		var time_check = 60.0 / bpms[speed]
 		if (new_audio_position - audio_position) >= time_check:
+			audio_position = new_audio_position
 			$Terrain1.pulsate()
 			$Terrain2.pulsate()
-			audio_position = new_audio_position
+			audio_position = audio_players[speed].get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 
 func stop():
 	for player in audio_players:

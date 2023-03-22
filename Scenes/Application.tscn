@@ -11,7 +11,7 @@ shader = ExtResource( 2 )
 shader_param/curvature = Vector2( 3, 3 )
 shader_param/screenResolution = Vector2( 426, 341 )
 shader_param/screenOpacity = Vector2( 0.5, 0.5 )
-shader_param/time = 27.63
+shader_param/time = 11.03
 
 [node name="Application" type="Control"]
 
