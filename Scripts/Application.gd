@@ -8,8 +8,8 @@ func _on_Titlescreen_start_game(two_players):
 	$Game.preparation()
 
 func _on_Game_gameover_single(score):
-	$Game.hide()
 	$Game.stop()
+	$Game.hide()
 	$Titlescreen.resume()
 	$GameoverSinglePlayer.reset()
 	$GameoverSinglePlayer.show()
@@ -18,5 +18,5 @@ func _on_Game_gameover_single(score):
 func _on_GameoverSinglePlayer_get_out():
 	$GameoverSinglePlayer.stop()
 	$GameoverSinglePlayer.hide()
-	$Titlescreen.focused = true
+	$Titlescreen.focus()
 	$Titlescreen.show()

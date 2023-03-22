@@ -7,6 +7,11 @@ var beats = 0
 
 var focused = true
 
+var highscores = []
+
+func _ready():
+	load_scores()
+
 func _process(delta):
 	if focused:
 		if Input.is_action_just_pressed("0player"):
@@ -26,6 +31,41 @@ func _process(delta):
 		$Level1.set_current_beat(beats + 1)
 		audio_position += time_check
 
+func load_scores():
+	var save_game = File.new()
+	if !save_game.file_exists("user://savegame.txt"):
+		highscores = [
+			"AAA 100000",
+			"AAA 080000",
+			"AAA 050000",
+			"AAA 020000",
+			"AAA 010000",
+			"AAA 005000",
+			"AAA 004000",
+			"AAA 002500",
+			"AAA 001500",
+			"AAA 000500"
+		]
+		save_game.open("user://savegame.txt", File.WRITE)
+		for line in highscores:
+			save_game.store_line(line)
+		save_game.close()
+	else:
+		save_game.open("user://savegame.txt", File.READ)
+		highscores = []
+		var text = save_game.get_as_text(true)
+		highscores = text.split("\n")
+		save_game.close()
+	
+	update_highscore_label()
+
+func update_highscore_label():
+	$HighscoreContainer/HighscoreLabel.text = "Highscores"
+	var i = 0
+	for highscore in highscores:
+		$HighscoreContainer/HighscoreLabel.text += "\n" + highscore
+		i += 1
+
 func start(two_players: bool):
 	$AudioStreamPlayer.stop()
 	focused = false
@@ -36,3 +76,7 @@ func resume():
 	beats = 0
 	$Level1.set_current_beat(beats + 1)
 	$AudioStreamPlayer.play()
+
+func focus():
+	load_scores()
+	focused = true

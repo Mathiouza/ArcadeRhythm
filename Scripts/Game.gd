@@ -19,8 +19,6 @@ var bpms = [
 ]
 var audio_position = 0.0
 
-var actual_level = 1
-
 export var two_players = false setget set_two_players
 
 var playing = false
@@ -47,6 +45,7 @@ func stop():
 		player.stop()
 	$Terrain1.active = false
 	$Terrain2.active = false
+	playing = false
 
 func preparation():
 	$Tween.interpolate_callback($Message, 0, "start_animation", "3")
@@ -58,18 +57,22 @@ func preparation():
 func reset():
 	audio_position = 0
 	speed = 0
-	$MusicSpeedContainer/MusicSpeed.current_beat = speed + 1
+	$MusicSpeedContainer/MusicSpeed.current_beat = 1
 	$Terrain1.reset()
 	$Terrain2.reset()
 
 func play():
 	audio_players[speed].play()
+	audio_players[speed].volume_db = 0
 	$Terrain1.play()
 	if two_players:
 		$Terrain2.play()
 	playing = true
 
 func change_tempo(prec_speed, new_speed):
+	if !playing:
+		return
+	
 	var pos = audio_players[prec_speed].get_playback_position()
 
 	for player in audio_players:
@@ -95,17 +98,16 @@ func set_two_players(new_value):
 		$Background.texture = background_two_players_texture if two_players else background_texture
 
 func _on_Terrain1_music_level(music_level, forced_level):
-	if music_level > actual_level:
+	if music_level > speed+1:
 		$Terrain2.set_forced_level(forced_level)
 		music_level_up(music_level)
 
 func _on_Terrain2_music_level(music_level, forced_level):
-	if music_level > actual_level:
+	if music_level > speed+1:
 		$Terrain1.set_forced_level(forced_level)
 		music_level_up(music_level)
 
 func music_level_up(music_level):
-	actual_level = music_level
 	var prec_speed = speed
 	speed = music_level - 1
 	change_tempo(prec_speed, speed)

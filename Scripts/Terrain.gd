@@ -46,7 +46,6 @@ var squares = []
 
 var current_beat = 0
 var number_of_beats = 6
-var on_beat = false
 
 var level_thresholds = [
 	300, 500, 3000, 4000
@@ -108,9 +107,6 @@ func _process(delta):
 		
 		if Input.is_action_just_pressed(str(controller)+"yellow1"):
 			if check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
-				if on_beat:
-					print("on beat")
-				
 				place()
 				current_beat = 0
 				update_display_beat()
@@ -129,7 +125,8 @@ func reset():
 		next_piece.queue_free()
 	next_piece = null
 	for i in squares:
-		i.queue_free()
+		if weakref(i).get_ref():
+			i.queue_free()
 	squares = []
 	square_positions = []
 	$LevelsContainer.current_beat = current_beat + 1
@@ -137,6 +134,7 @@ func reset():
 	set_score(0)
 	$HeartsContainer.lives = 3
 	$LevelsContainer.level = actual_level
+	$Message.reset()
 
 func play():
 	active = true
@@ -276,15 +274,10 @@ func check_for_clears():
 
 func pulsate():
 	if active:
-		on_beat = true
-		$Timer.start()
 		if current_piece != null:
 			current_piece.pulsate()
 		current_beat += 1
 		update_display_beat()
-
-func _on_Timer_timeout():
-	on_beat = false
 
 func set_controller(new_controller):
 	controller = new_controller

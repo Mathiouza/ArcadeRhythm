@@ -24,3 +24,7 @@ func start_animation(text):
 func end_animation():
 	$Tween2.interpolate_property(self, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), .2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	$Tween2.start()
+
+func reset():
+	$Tween.stop_all()
+	$Tween2.stop_all()
