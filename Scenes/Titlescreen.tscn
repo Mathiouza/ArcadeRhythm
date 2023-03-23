@@ -17,15 +17,15 @@ size = 24
 font_data = ExtResource( 5 )
 
 [node name="Titlescreen" type="Sprite"]
+position = Vector2( 213, 170.5 )
 texture = ExtResource( 2 )
-centered = false
 script = ExtResource( 10 )
 
 [node name="HighscoreContainer" parent="." instance=ExtResource( 4 )]
-margin_left = 293.0
-margin_top = 40.0
-margin_right = 398.0
-margin_bottom = 289.0
+margin_left = 80.0
+margin_top = -130.5
+margin_right = 185.0
+margin_bottom = 118.5
 
 [node name="HighscoreLabel" type="Label" parent="HighscoreContainer"]
 margin_top = 12.0
@@ -46,10 +46,10 @@ AAA 000005"
 align = 1
 
 [node name="Panel2" parent="." instance=ExtResource( 1 )]
-margin_left = 27.0
-margin_top = 170.0
-margin_right = 289.0
-margin_bottom = 289.0
+margin_left = -186.0
+margin_top = -0.5
+margin_right = 76.0
+margin_bottom = 118.5
 horizontal_bolts = 2
 
 [node name="ButtonOnePlayer" type="Sprite" parent="Panel2"]
@@ -89,7 +89,7 @@ text = "Start game!"
 align = 1
 
 [node name="Level1" type="Node2D" parent="."]
-position = Vector2( 66, 152 )
+position = Vector2( -147, -18.5 )
 rotation = -1.5708
 scale = Vector2( 2, 2 )
 script = ExtResource( 9 )

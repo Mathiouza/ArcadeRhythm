@@ -14,7 +14,7 @@ shader_param/screenResolution = Vector2( 426, 341 )
 shader_param/screenOpacity = Vector2( 0.5, 0.5 )
 shader_param/time = 11.03
 shader_param/brillance = 0.0
-shader_param/red = 0.0138887
+shader_param/red = 0.847649
 
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -192,7 +192,7 @@ tracks/6/keys = {
 [node name="Splashscreen" type="Control"]
 script = ExtResource( 3 )
 curvature = 3.0
-red = 0.0138887
+red = 0.847649
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 material = SubResource( 1 )
