@@ -54,7 +54,7 @@ void fragment() {
 			
 			float luminance = new_color.r * 0.2126 + new_color.g * 0.7152 + new_color.b * 0.0722;
 			
-			if(luminance > 0.4 && luminance < 0.5 ||
+			if(luminance > 0.4 && luminance < 0.5 || luminance > 0.9 ||
 				new_color.r > 0.944 && new_color.r < 0.946 && new_color.g > 0.191 && new_color.g < 0.193 && new_color.b > 0.070 && new_color.b < 0.073 || 
 				new_color.r > 0.159 && new_color.r < 0.161 && new_color.g > 0.657 && new_color.g < 0.659 && new_color.b > 0.321 && new_color.b < 0.323) {
 				COLOR += vec4(new_color.rgb * vec3(float(10-i)), 0.0) * 0.05;

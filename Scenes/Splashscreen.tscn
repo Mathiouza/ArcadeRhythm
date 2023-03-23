@@ -1,0 +1,243 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Assets/Shaders/OldTVSplashscreen.gdshader" type="Shader" id=1]
+[ext_resource path="res://Assets/Sprites/Background.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Splashscreen.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Splash/PolygamesLogo.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Splash/Controller.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Splash/Godot.png" type="Texture" id=6]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/curvature = Vector2( 3, 3 )
+shader_param/screenResolution = Vector2( 426, 341 )
+shader_param/screenOpacity = Vector2( 0.5, 0.5 )
+shader_param/time = 11.03
+shader_param/brillance = 0.0
+shader_param/red = 0.0138887
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 2
+emission_box_extents = Vector3( 30, 30, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 267.33
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 100.0
+scale = 50.0
+scale_random = 1.0
+scale_curve = SubResource( 6 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ViewportContainer/Viewport/SplashContainer/PolyGamesContainer/PolyGames:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ViewportContainer/Viewport/SplashContainer/PolyGamesContainer/Particles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ViewportContainer/Viewport/SplashContainer/GodotContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ViewportContainer/Viewport/SplashContainer/GodotContainer:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 4 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ViewportContainer/Viewport/SplashContainer/GodotContainer:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Splashscreen"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:curvature")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.210931, 0.459249 ),
+"transitions": PoolRealArray( 1, 1, 2.46229 ),
+"update": 0,
+"values": [ 0.0, 0.0, 3.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:brillance")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.210931, 0.952864 ),
+"transitions": PoolRealArray( 1, 1, 0.406126 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ViewportContainer/Viewport/SplashContainer/PolyGamesContainer/PolyGames:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3.57187, 3.59202 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:red")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.81593, 3.57118, 4.70307 ),
+"transitions": PoolRealArray( 1, 1, 2.21914, 0.31864 ),
+"update": 0,
+"values": [ 0.0138887, 0.0138887, 1.0, 0.0138887 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ViewportContainer/Viewport/SplashContainer/PolyGamesContainer/Particles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.95273, 3.57879 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("ViewportContainer/Viewport/SplashContainer/GodotContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 5.81289, 5.92647 ),
+"transitions": PoolRealArray( 1, 1, 0.435275 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("ViewportContainer/Viewport/SplashContainer/GodotContainer:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 5.79442, 6.05222 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, 4 ), Vector2( 4, 4 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Splashscreen" type="Control"]
+script = ExtResource( 3 )
+curvature = 3.0
+red = 0.0138887
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+material = SubResource( 1 )
+margin_right = 1280.0
+margin_bottom = 1024.0
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1280, 1024 )
+handle_input_locally = false
+hdr = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+
+[node name="SplashContainer" type="Node2D" parent="ViewportContainer/Viewport"]
+scale = Vector2( 3, 3 )
+
+[node name="PolyGamesContainer" type="Sprite" parent="ViewportContainer/Viewport/SplashContainer"]
+position = Vector2( 213, 170.5 )
+texture = ExtResource( 2 )
+
+[node name="Controller" type="Sprite" parent="ViewportContainer/Viewport/SplashContainer/PolyGamesContainer"]
+texture = ExtResource( 5 )
+
+[node name="PolyGames" type="Sprite" parent="ViewportContainer/Viewport/SplashContainer/PolyGamesContainer"]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 4 )
+
+[node name="Particles2D" type="Particles2D" parent="ViewportContainer/Viewport/SplashContainer/PolyGamesContainer"]
+emitting = false
+amount = 500
+explosiveness = 0.23
+process_material = SubResource( 4 )
+
+[node name="GodotContainer" type="Sprite" parent="ViewportContainer/Viewport/SplashContainer"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 213, 170.5 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+
+[node name="Controller" type="Sprite" parent="ViewportContainer/Viewport/SplashContainer/GodotContainer"]
+texture = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/Splashscreen = SubResource( 2 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
