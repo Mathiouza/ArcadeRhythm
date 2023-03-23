@@ -48,10 +48,12 @@ var current_beat = 0
 var number_of_beats = 6
 
 var level_thresholds = [
-	300, 500, 3000, 4000
+	1000, 3000, 5000, 7000, 10000, 13000, 16000, 18000, 20000, 25000, 30000, 35000,
+	40000, 50000, 60000, 70000, 80000, 100000, 120000, 140000
 ]
 var level_actions = [
-	"music", "music", "music", "music",
+	"beat", "beat", "beat", "beat", "music", "beat", "beat", "beat", "music", "beat", "beat", "beat",
+	"music", "beat", "beat", "beat", "music", "beat", "beat", "beat"
 ]
 var level_colors = [
 	Color("#5de04f"),
