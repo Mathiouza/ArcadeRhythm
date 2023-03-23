@@ -48,12 +48,18 @@ var current_beat = 0
 var number_of_beats = 6
 
 var level_thresholds = [
-	1000, 3000, 5000, 7000, 10000, 13000, 16000, 18000, 20000, 25000, 30000, 35000,
-	40000, 50000, 60000, 70000, 80000, 100000, 120000, 140000
+	1000, 3000, 5000, 7000, 10000, 
+	13000, 16000, 18000, 20000, 
+	27500, 35000, 42500, 50000, 
+	60000, 70000, 80000, 90000, 
+	110000, 130000, 150000
 ]
 var level_actions = [
-	"beat", "beat", "beat", "beat", "music", "beat", "beat", "beat", "music", "beat", "beat", "beat",
-	"music", "beat", "beat", "beat", "music", "beat", "beat", "beat"
+	"beat", "beat", "beat", "beat", "music", 
+	"beat", "beat", "beat", "music", 
+	"beat", "beat", "beat", "music", 
+	"beat", "beat", "beat", "music", 
+	"beat", "beat", "beat"
 ]
 var level_colors = [
 	Color("#5de04f"),
@@ -270,7 +276,11 @@ func check_for_clears():
 	var actualPoints = 0
 	
 	for i in points:
-		actualPoints += (i+1) * 1000
+		match i+1:
+			1: actualPoints += 1000
+			2: actualPoints += 2000
+			3: actualPoints += 4000
+			4: actualPoints += 6000
 	
 	set_score(score + actualPoints)
 
