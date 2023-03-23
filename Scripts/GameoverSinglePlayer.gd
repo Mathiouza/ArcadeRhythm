@@ -53,6 +53,6 @@ func start_init_animation(score):
 
 func _process(_delta):
 	if active:
-		if Input.is_action_just_pressed("0red1") || Input.is_action_just_pressed("0red2"):
+		if Input.is_action_just_pressed("0yellow2"):
 			save_scores()
 			emit_signal("get_out")

@@ -5,7 +5,7 @@ signal start_game(two_players)
 var audio_position = 0.0
 var beats = 0
 
-var focused = true
+var focused = false
 
 var highscores = []
 
