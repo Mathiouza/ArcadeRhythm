@@ -70,6 +70,7 @@ var level_colors = [
 	Color("#d1802e"),
 	Color("#d1592e"),
 ]
+var not_placeable_color = Color(0.62, 0.0124, 0.0124)
 var score = 0
 var actual_level = 1
 var forced_level = 1
@@ -95,6 +96,11 @@ func update_display_beat():
 
 func _process(_delta):
 	if !Engine.editor_hint && active:
+		if check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
+			current_piece.modulate = Color(1, 1, 1)
+		else:
+			current_piece.modulate = not_placeable_color
+			
 		if Input.is_action_just_pressed(str(controller)+"up") && check_for_edges(current_piece.x, current_piece.y-1, current_piece.rot, current_piece.square_positions):
 			current_piece.move(0, -1)
 		
