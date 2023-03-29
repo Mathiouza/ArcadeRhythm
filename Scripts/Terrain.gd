@@ -70,7 +70,7 @@ var level_colors = [
 	Color("#d1802e"),
 	Color("#d1592e"),
 ]
-var not_placeable_color = Color(0.62, 0.0124, 0.0124)
+export var not_placeable_color = Color(0.62, 0.0124, 0.0124)
 var score = 0
 var actual_level = 1
 var forced_level = 1

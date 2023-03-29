@@ -37,3 +37,6 @@ func _on_Timer_timeout():
 	$GameoverTwoPlayer.hide()
 	$Titlescreen.focus()
 	$Titlescreen.show()
+	
+func _on_Titlescreen_exit_game():
+	get_tree().quit()

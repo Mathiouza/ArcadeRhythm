@@ -376,6 +376,7 @@ anims/RESET = SubResource( 7 )
 anims/Splashscreen = SubResource( 12 )
 anims/Splashscreen_end = SubResource( 8 )
 
+[connection signal="exit_game" from="ViewportContainer/Viewport/GameContainer/Titlescreen" to="ViewportContainer/Viewport/GameContainer" method="_on_Titlescreen_exit_game"]
 [connection signal="start_game" from="ViewportContainer/Viewport/GameContainer/Titlescreen" to="ViewportContainer/Viewport/GameContainer" method="_on_Titlescreen_start_game"]
 [connection signal="gameover_single" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_single"]
 [connection signal="gameover_two" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_two"]

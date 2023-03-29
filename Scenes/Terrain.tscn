@@ -30,6 +30,7 @@ shader_param/color = Color( 0.945098, 0.192157, 0.0705882, 1 )
 
 [node name="Terrain" type="Node2D"]
 script = ExtResource( 1 )
+not_placeable_color = Color( 0.619608, 0.0117647, 0.0117647, 1 )
 
 [node name="Panel" parent="." instance=ExtResource( 8 )]
 margin_left = 1.0
