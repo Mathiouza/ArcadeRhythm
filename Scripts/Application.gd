@@ -1,5 +1,8 @@
 extends Node2D
 
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
 func _on_Titlescreen_start_game(two_players):
 	$Titlescreen.hide()
 	$Game.two_players = two_players
