@@ -5,6 +5,12 @@ func _ready():
 
 func _on_Titlescreen_start_game(two_players):
 	$Titlescreen.hide()
+	$Tutorial.reset(two_players)
+	$Tutorial.show()
+
+func _on_Tutorial_start(two_players):
+	$Titlescreen.stop_audioplayer()
+	$Tutorial.hide()
 	$Game.two_players = two_players
 	$Game.reset()
 	$Game.show()
@@ -37,6 +43,6 @@ func _on_Timer_timeout():
 	$GameoverTwoPlayer.hide()
 	$Titlescreen.focus()
 	$Titlescreen.show()
-	
+
 func _on_Titlescreen_exit_game():
 	get_tree().quit()

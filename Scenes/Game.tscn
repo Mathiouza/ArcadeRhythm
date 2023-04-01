@@ -80,11 +80,13 @@ text = "Music speed"
 
 [node name="Terrain1" parent="." instance=ExtResource( 7 )]
 position = Vector2( 170, 112 )
+not_placeable_color = Color( 1, 0.376471, 0.376471, 1 )
 
 [node name="Terrain2" parent="." instance=ExtResource( 7 )]
 visible = false
 position = Vector2( 258, 112 )
 controller = 1
+not_placeable_color = Color( 1, 0.376471, 0.376471, 1 )
 
 [node name="Message" parent="." instance=ExtResource( 9 )]
 position = Vector2( 213, 169 )
