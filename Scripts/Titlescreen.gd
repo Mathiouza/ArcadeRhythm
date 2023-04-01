@@ -65,9 +65,11 @@ func update_highscore_label():
 		$HighscoreContainer/HighscoreLabel.text += "\n" + highscore
 
 func start(two_players: bool):
-	$AudioStreamPlayer.stop()
 	focused = false
 	emit_signal("start_game", two_players)
+
+func stop_audioplayer():
+	$AudioStreamPlayer.stop()
 
 func resume():
 	audio_position = 0

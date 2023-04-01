@@ -21,6 +21,8 @@ func load_scores():
 	var save_game = File.new()
 	if save_game.file_exists("user://savegame.txt"):
 		save_game.open("user://savegame.txt", File.READ)
+		highscores_names = []
+		highscores = []
 		var text = save_game.get_as_text(true)
 		for line in text.split("\n"):
 			var components = line.split(" ")
