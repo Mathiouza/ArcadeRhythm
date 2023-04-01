@@ -50,6 +50,8 @@ func stop():
 	playing = false
 
 func preparation():
+	$Terrain1.active = false
+	$Terrain2.active = false
 	$Tween.interpolate_callback($Message, 0, "start_animation", "3")
 	$Tween.interpolate_callback($Message, 1, "start_animation", "2")
 	$Tween.interpolate_callback($Message, 2, "start_animation", "1")

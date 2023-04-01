@@ -45,3 +45,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		if anim_name == "Splashscreen_end":
 			$ViewportContainer/Viewport/SplashContainer.queue_free()
 			$ViewportContainer/Viewport/GameContainer/Titlescreen.focus()
+
