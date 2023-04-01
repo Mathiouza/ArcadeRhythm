@@ -383,6 +383,8 @@ anims/Splashscreen_end = SubResource( 8 )
 [connection signal="exit_game" from="ViewportContainer/Viewport/GameContainer/Titlescreen" to="ViewportContainer/Viewport/GameContainer" method="_on_Titlescreen_exit_game"]
 [connection signal="start_game" from="ViewportContainer/Viewport/GameContainer/Titlescreen" to="ViewportContainer/Viewport/GameContainer" method="_on_Titlescreen_start_game"]
 [connection signal="start" from="ViewportContainer/Viewport/GameContainer/Tutorial" to="ViewportContainer/Viewport/GameContainer" method="_on_Tutorial_start"]
+[connection signal="gameover_single" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_single"]
+[connection signal="gameover_two" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_two"]
 [connection signal="get_out" from="ViewportContainer/Viewport/GameContainer/GameoverSinglePlayer" to="ViewportContainer/Viewport/GameContainer" method="_on_GameoverSinglePlayer_get_out"]
 [connection signal="timeout" from="ViewportContainer/Viewport/GameContainer/Timer" to="ViewportContainer/Viewport/GameContainer" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
