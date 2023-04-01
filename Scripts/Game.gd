@@ -50,6 +50,8 @@ func stop():
 	playing = false
 
 func preparation():
+	$Terrain1.active = false
+	$Terrain2.active = false
 	yield(get_tree(), "idle_frame")
 	play()
 

@@ -1,6 +1,7 @@
 extends Sprite
 
 signal start_game(two_players)
+signal exit_game
 
 var audio_position = 0.0
 var beats = 0
@@ -19,6 +20,9 @@ func _process(_delta):
 		
 		if Input.is_action_just_pressed("1player"):
 			start(true)
+			
+		if Input.is_action_just_pressed("0credit"):
+			emit_signal("exit_game")
 		
 	var new_audio_position = $AudioStreamPlayer.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 	
