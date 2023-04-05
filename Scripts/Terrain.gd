@@ -119,7 +119,7 @@ func _process(_delta):
 		if Input.is_action_just_pressed(str(controller)+"red2") && check_for_edges(current_piece.x, current_piece.y, current_piece.rot-1, current_piece.square_positions):
 			current_piece.turn(false)
 		
-		if Input.is_action_just_pressed(str(controller)+"yellow1"):
+		if Input.is_action_just_pressed(str(controller)+"yellow1") or Input.is_action_just_pressed(str(controller)+"yellow2"):
 			if check_for_placement(current_piece.x, current_piece.y, current_piece.rot, current_piece.square_positions):
 				place()
 				current_beat = 0
