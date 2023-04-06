@@ -35,15 +35,15 @@ func load_scores():
 	var save_game = File.new()
 	if !save_game.file_exists("user://savegame.txt"):
 		highscores = [
-			"AAA 100000",
-			"AAA 080000",
-			"AAA 050000",
-			"AAA 020000",
-			"AAA 010000",
-			"AAA 005000",
-			"AAA 004000",
-			"AAA 002500",
-			"AAA 001500",
+			"POL 100000",
+			"YGA 080000",
+			"MES 050000",
+			"WHA 020000",
+			"TAG 010000",
+			"AME 005000",
+			"WOW 004000",
+			"GEN 002500",
+			"IAL 001500",
 			"AAA 000500"
 		]
 		save_game.open("user://savegame.txt", File.WRITE)
