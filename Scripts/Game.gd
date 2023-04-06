@@ -50,11 +50,10 @@ func stop():
 	playing = false
 
 func preparation():
-	$Tween.interpolate_callback($Message, 0, "start_animation", "3")
-	$Tween.interpolate_callback($Message, 1, "start_animation", "2")
-	$Tween.interpolate_callback($Message, 2, "start_animation", "1")
-	$Tween.interpolate_callback(self, 3, "play")
-	$Tween.start()
+	$Terrain1.active = false
+	$Terrain2.active = false
+	yield(get_tree(), "idle_frame")
+	play()
 
 func reset():
 	audio_position = 0

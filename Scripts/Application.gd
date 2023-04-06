@@ -1,7 +1,20 @@
 extends Node2D
 
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+func _process(delta):
+	if Input.is_action_just_pressed("0credit") or Input.is_action_just_pressed("1credit"):
+		get_tree().quit()
+
 func _on_Titlescreen_start_game(two_players):
 	$Titlescreen.hide()
+	$Tutorial.reset(two_players)
+	$Tutorial.show()
+
+func _on_Tutorial_start(two_players):
+	$Titlescreen.stop_audioplayer()
+	$Tutorial.hide()
 	$Game.two_players = two_players
 	$Game.reset()
 	$Game.show()

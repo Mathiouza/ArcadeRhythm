@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/Titlescreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Shaders/OldTV.gdshader" type="Shader" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Splash/Controller.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Splash/PolygamesLogo.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/GameoverTwoPlayer.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Tutorial.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 2 )
@@ -358,6 +359,9 @@ script = ExtResource( 4 )
 modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 3, 3 )
 
+[node name="Tutorial" parent="ViewportContainer/Viewport/GameContainer" instance=ExtResource( 12 )]
+visible = false
+
 [node name="Game" parent="ViewportContainer/Viewport/GameContainer" instance=ExtResource( 3 )]
 visible = false
 
@@ -377,6 +381,7 @@ anims/Splashscreen = SubResource( 12 )
 anims/Splashscreen_end = SubResource( 8 )
 
 [connection signal="start_game" from="ViewportContainer/Viewport/GameContainer/Titlescreen" to="ViewportContainer/Viewport/GameContainer" method="_on_Titlescreen_start_game"]
+[connection signal="start" from="ViewportContainer/Viewport/GameContainer/Tutorial" to="ViewportContainer/Viewport/GameContainer" method="_on_Tutorial_start"]
 [connection signal="gameover_single" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_single"]
 [connection signal="gameover_two" from="ViewportContainer/Viewport/GameContainer/Game" to="ViewportContainer/Viewport/GameContainer" method="_on_Game_gameover_two"]
 [connection signal="get_out" from="ViewportContainer/Viewport/GameContainer/GameoverSinglePlayer" to="ViewportContainer/Viewport/GameContainer" method="_on_GameoverSinglePlayer_get_out"]
